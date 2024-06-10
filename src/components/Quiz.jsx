@@ -1,4 +1,4 @@
-export default function Quizz({ children }) {
+export default function Quiz({ children }) {
     return (
         <div id="quiz">
             {children}

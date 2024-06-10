@@ -1,12 +1,12 @@
-import Quizz from "./components/Quizz.jsx";
+import Quiz from "./components/Quiz.jsx";
 
 function App() {
     return (
-        <Quizz>
+        <Quiz>
             <p>this will be a progress bar</p>
             <p>this will be a question</p>
             <p>and here we'll have the possible answers</p>
-        </Quizz>
+        </Quiz>
     );
 }
 
