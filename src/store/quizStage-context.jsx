@@ -1,19 +1,43 @@
-import { useState, createContext } from "react";
+import { useReducer, createContext } from "react";
 
 export const QuizStageContext = createContext({
-    stage: "Start",
-    answers: []
+    stage: "start",
+    answers: [],
+    stageChange: () => {},
 });
+
+function quizStageReducer(state, action) {
+    if (action.type === "start") {
+        return {
+            ...state,
+            stage: "q1"
+        };
+    }
+    return state;
+}
 
 export default function QuizStageContextProvider({ children }) {
 
-    const [quizStage, setQuizStage] = useState({
-        stage: "Start",
-        answers: []
-    });
+    const [quizStageState, quizStageDispatch] = useReducer(
+        quizStageReducer,
+        {
+            stage: "start",
+            answers: []
+        }
+    );
+
+    function handleStageChange(id) {
+        quizStageDispatch({
+            type: id,
+            payload: {}
+        });
+    }
+
+    console.log(quizStageState);
 
     let quizStageCtx = {
-        currentStage: quizStage.stage,
+        currentStage: quizStageState.stage,
+        stageChange: handleStageChange
     };
 
     return <QuizStageContext.Provider value={quizStageCtx}>

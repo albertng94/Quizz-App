@@ -1,5 +1,11 @@
+import { QuizStageContext } from "../store/quizStage-context";
+import { useContext } from "react";
+
 export default function Start() {
+
+    let { stageChange } = useContext(QuizStageContext);
+
     return (
-        <button id="startButton">Start Quiz!</button>
+        <button onClick={() => stageChange("start")} id="startButton">Start Quiz!</button>
     );
 }
