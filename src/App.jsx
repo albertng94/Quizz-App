@@ -1,17 +1,30 @@
 import Quiz from "./components/Quiz.jsx";
-import Start from "./components/Start.jsx";
 import QuizStageContextProvider from "./store/quizStage-context.jsx";
+import { QuizStageContext } from "./store/quizStage-context.jsx";
+import { useContext } from "react";
 
 
-function App() {
-    
+const App = () => {
+
+    const { currentStage } = useContext(QuizStageContext);
+
+    let content = <Quiz />;
+
+    if (currentStage === "results") {
+        content = "Results-Component";
+    }
+
     return (
-        <QuizStageContextProvider>
-            <Quiz>
-                <Start />
-            </Quiz>
-        </QuizStageContextProvider>
+        <>
+            {content}
+        </>
     );
-}
+};
 
-export default App;
+const AppWithProvider = () => (
+    <QuizStageContextProvider>
+        <App />
+    </QuizStageContextProvider>
+);
+
+export default AppWithProvider;
