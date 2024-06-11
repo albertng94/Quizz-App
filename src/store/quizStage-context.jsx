@@ -5,7 +5,7 @@ export const QuizStageContext = createContext({
     answers: []
 });
 
-export default function quizStageContextProvider({ children }) {
+export default function QuizStageContextProvider({ children }) {
 
     const [quizStage, setQuizStage] = useState({
         stage: "Start",
