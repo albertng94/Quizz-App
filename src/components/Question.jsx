@@ -1,6 +1,7 @@
 import questions from "../questions.js";
 import { QuizStageContext } from "../store/quizStage-context.jsx";
 import { useContext, useState } from "react";
+import Option from "./Option.jsx";
 
 export default function Question() {
 
@@ -25,12 +26,11 @@ export default function Question() {
     return (
         <>
            <p>Progress Bar will go here</p>
-           <h2>Question goes here</h2>
+           <h2>{questions[questionNumber].text}</h2>
            <ul id="answers">
-            <li className="answer">option 1</li>
-            <li className="answer">option 2</li>
-            <li className="answer">option 3</li>
-            <li className="answer">option 4</li>
+            {questions[questionNumber].answers.map((answer, answerIndex) => (
+                <Option key={answerIndex}>{answer}</Option>
+            ))}
            </ul> 
            <button onClick={onClickValue}>NEXT QUESTION (TEST)</button>
         </>
