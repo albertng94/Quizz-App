@@ -1,7 +1,7 @@
-export default function Option({ children }) {
+export default function Option({ children, id, className, onClick }) {
     return (
         <li className="answer">
-            <button>{children}</button>
+            <button id={id} className={className} onClick={onClick}>{children}</button>
         </li>
     );
 }

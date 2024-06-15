@@ -6,12 +6,24 @@ import Option from "./Option.jsx";
 export default function Question() {
 
     const [questionNumber, setQuestionNumber] = useState(1);
+    const [solutionTracking, setSolutionTracking] = useState({
+        selectedSolution: "",
+        selectionStyling: ""
+    });
     const { stageChange } = useContext(QuizStageContext);
 
     function handleNextQuestion() {
         setQuestionNumber((prevQuestion) => {
             console.log("triggered");
             return ++prevQuestion;
+        });
+        setSolutionTracking((prevState) => {
+            let updatedState = {
+                ...prevState,
+                selectionStyling: "",
+                selectedSolution: ""
+            }
+            return updatedState;
         });
     }
 
@@ -21,7 +33,18 @@ export default function Question() {
         onClickValue = () => stageChange("questionsStageEnding");
     }
 
-    console.log(questionNumber);
+    function handleSelectionStyling(event) {
+        if (solutionTracking.selectionStyling === "") {
+            setSolutionTracking((prevState) => {
+                let updatedState = {
+                    ...prevState,
+                    selectionStyling: "selected",
+                    selectedSolution: event.target.id
+                }
+                return updatedState;
+            });
+        }
+    }
 
     return (
         <>
@@ -29,7 +52,7 @@ export default function Question() {
            <h2>{questions[questionNumber].text}</h2>
            <ul id="answers">
             {questions[questionNumber].answers.map((answer, answerIndex) => (
-                <Option key={answerIndex}>{answer}</Option>
+                <Option className={(answerIndex == solutionTracking.selectedSolution) ? solutionTracking.selectionStyling : ""} onClick={handleSelectionStyling} id={answerIndex} key={answerIndex}>{answer}</Option>
             ))}
            </ul> 
            <button onClick={onClickValue}>NEXT QUESTION (TEST)</button>
