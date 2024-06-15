@@ -1,18 +1,23 @@
 import { useReducer, createContext } from "react";
 
 export const QuizStageContext = createContext({
-    stage: "start",
+    stage: "startStage",
     answers: [],
     stageChange: () => {},
 });
 
 function quizStageReducer(state, action) {
-    if (action.type === "start") {
+    if (action.type === "startStageEnding") {
         return {
             ...state,
-            stage: "q1"
+            stage: "questionsStage"
         };
-    }
+    } else if (action.type === "questionsStageEnding") {
+        return {
+            ...state,
+            stage: "resultsStage"
+        }
+    } 
     return state;
 }
 
@@ -21,12 +26,13 @@ export default function QuizStageContextProvider({ children }) {
     const [quizStageState, quizStageDispatch] = useReducer(
         quizStageReducer,
         {
-            stage: "start",
+            stage: "startStage",
             answers: []
         }
     );
 
     function handleStageChange(id) {
+        console.log(id);
         quizStageDispatch({
             type: id,
             payload: {}

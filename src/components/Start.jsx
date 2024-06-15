@@ -6,6 +6,6 @@ export default function Start() {
     let { stageChange } = useContext(QuizStageContext);
 
     return (
-        <button onClick={() => stageChange("start")} id="startButton">Start Quiz!</button>
+        <button onClick={() => stageChange("startStageEnding")} id="startButton">Start Quiz!</button>
     );
 }

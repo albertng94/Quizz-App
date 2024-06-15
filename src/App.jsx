@@ -10,7 +10,7 @@ const App = () => {
 
     let content = <Quiz />;
 
-    if (currentStage === "results") {
+    if (currentStage === "resultsStage") {
         content = "Results-Component";
     }
 

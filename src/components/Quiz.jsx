@@ -9,7 +9,7 @@ export default function Quiz() {
 
     let content = <Start />;
 
-    if (currentStage !== "start") {
+    if (currentStage !== "startStage") {
         content = <Question />;
     }
 
