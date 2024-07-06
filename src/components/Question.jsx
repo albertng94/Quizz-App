@@ -1,61 +1,79 @@
 import questions from "../questions.js";
 import { QuizStageContext } from "../store/quizStage-context.jsx";
-import { useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 import Option from "./Option.jsx";
+import ProgressBar from "./ProgressBar.jsx";
+
+let selectedAnswers = [];
+let TIMER = 10000
+let compReset = 0;
 
 export default function Question() {
 
-    const [questionNumber, setQuestionNumber] = useState(1);
-    const [solutionTracking, setSolutionTracking] = useState({
-        selectedSolution: "",
-        selectionStyling: ""
-    });
     const { stageChange } = useContext(QuizStageContext);
 
-    function handleNextQuestion() {
-        setQuestionNumber((prevQuestion) => {
-            console.log("triggered");
-            return ++prevQuestion;
-        });
-        setSolutionTracking((prevState) => {
-            let updatedState = {
-                ...prevState,
-                selectionStyling: "",
-                selectedSolution: ""
-            }
-            return updatedState;
-        });
+    const [questionNumber, setQuestionNumber] = useState(1);
+    const [solutionStyling, setSolutionStyling] = useState("");
+
+    if (questionNumber > 7) {
+        stageChange("questionsStageEnding");
     }
 
-    let onClickValue = handleNextQuestion;
-
-    if (questionNumber === 7) {
-        onClickValue = () => stageChange("questionsStageEnding");
+    if (questionNumber >= 1 && questionNumber < 8) {
+        ++compReset;
     }
-
-    function handleSelectionStyling(event) {
-        if (solutionTracking.selectionStyling === "") {
-            setSolutionTracking((prevState) => {
-                let updatedState = {
-                    ...prevState,
-                    selectionStyling: "selected",
-                    selectedSolution: event.target.id
-                }
-                return updatedState;
+    
+    
+    const handleNextQuestion = useCallback(function handleNextQuestion(skipped) {
+        if (solutionStyling === "" && questionNumber <= 7 && skipped) {
+            selectedAnswers.push(skipped);
+            setQuestionNumber((prevQuestion) => {
+                return ++prevQuestion;
+            });
+        } else {
+            TIMER = 10000;
+            setSolutionStyling("");
+            setQuestionNumber((prevQuestion) => {
+                return ++prevQuestion;
             });
         }
+    }, [solutionStyling, questionNumber]);
+
+
+    const handleSkipAnswer = useCallback(() => handleNextQuestion("skipped"), [handleNextQuestion]);
+
+
+    function handleSelectionStyling(selectedAnswer) {
+        selectedAnswers.push(selectedAnswer);
+        TIMER = 3000;
+        setSolutionStyling("selected");
+
+        setTimeout(() => {
+            if ((selectedAnswer) === questions[questionNumber-1].answers[0]) {
+                TIMER = 5000;
+                setSolutionStyling("correct");
+            } else {
+                TIMER = 5000;
+                setSolutionStyling("wrong");
+            }
+            
+
+            setTimeout(() => {
+                TIMER = 10000;
+                handleNextQuestion();
+            }, 5000);
+        }, 3000);
     }
 
     return (
         <>
-           <p>Progress Bar will go here</p>
-           <h2>{questions[questionNumber].text}</h2>
+           <ProgressBar key={compReset} time={TIMER} onTimeOut={handleSkipAnswer}/>
+           <h2>{questions[questionNumber-1].text}</h2>
            <ul id="answers">
-            {questions[questionNumber].answers.map((answer, answerIndex) => (
-                <Option className={(answerIndex == solutionTracking.selectedSolution) ? solutionTracking.selectionStyling : ""} onClick={handleSelectionStyling} id={answerIndex} key={answerIndex}>{answer}</Option>
+            {questions[questionNumber-1].answers.map((answer) => (
+                <Option className={(answer === selectedAnswers[selectedAnswers.length-1]) ? solutionStyling : ""} onClick={() => handleSelectionStyling(answer)} key={answer}>{answer}</Option>
             ))}
            </ul> 
-           <button onClick={onClickValue}>NEXT QUESTION (TEST)</button>
         </>
     );
 }
