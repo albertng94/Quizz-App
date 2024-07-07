@@ -75,7 +75,13 @@ export default function Question() {
            <h2>{questions[questionNumber-1].text}</h2>
            <ul id="answers">
             {shuffledAnswers.map((answer) => (
-                <Option className={(answer === selectedAnswers[selectedAnswers.length-1]) ? solutionStyling : ""} onClick={() => handleSelectionStyling(answer)} key={answer}>{answer}</Option>
+                <Option 
+                    className={(answer === selectedAnswers[selectedAnswers.length-1]) ? solutionStyling : ""} 
+                    onClick={() => handleSelectionStyling(answer)} 
+                    key={answer}
+                    disable={solutionStyling !== "" ? true : null}>
+                        {answer}
+                </Option>
             ))}
            </ul> 
         </>
