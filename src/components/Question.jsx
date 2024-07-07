@@ -37,6 +37,7 @@ export default function Question() {
             });
         } else {
             setQuestionNumber((prevQuestion) => {
+                TIMER = 10000;
                 return ++prevQuestion;
             });
         }
@@ -47,8 +48,8 @@ export default function Question() {
 
 
     function handleSelectionStyling(selectedAnswer) {
-        selectedAnswers.push(selectedAnswer);
         TIMER = 3000;
+        selectedAnswers.push(selectedAnswer);
         setSolutionStyling("selected");
 
         setTimeout(() => {
@@ -63,7 +64,6 @@ export default function Question() {
 
             setTimeout(() => {
                 setSolutionStyling("");
-                TIMER = 10000;
                 handleNextQuestion();
             }, 5000);
         }, 3000);

@@ -33,14 +33,11 @@ export default function QuizStageContextProvider({ children }) {
     );
 
     function handleStageChange(id, answers) {
-        console.log(id);
         quizStageDispatch({
             type: id,
             payload: answers
         });
     }
-
-    console.log(quizStageState);
 
     let quizStageCtx = {
         currentStage: quizStageState.stage,
