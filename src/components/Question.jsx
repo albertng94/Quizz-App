@@ -4,6 +4,7 @@ import { useContext, useState, useCallback } from "react";
 import Option from "./Option.jsx";
 import ProgressBar from "./ProgressBar.jsx";
 
+let shuffledAnswers;
 let selectedAnswers = [];
 let TIMER = 10000
 let compReset = 0;
@@ -23,16 +24,18 @@ export default function Question() {
         ++compReset;
     }
     
+    if (solutionStyling === "") {
+        shuffledAnswers = [...questions[questionNumber-1].answers].sort(() => Math.random() - 0.5);
+    }
+
     
     const handleNextQuestion = useCallback(function handleNextQuestion(skipped) {
-        if (solutionStyling === "" && questionNumber <= 7 && skipped) {
+        if (questionNumber <= 7 && skipped) {
             selectedAnswers.push(skipped);
             setQuestionNumber((prevQuestion) => {
                 return ++prevQuestion;
             });
         } else {
-            TIMER = 10000;
-            setSolutionStyling("");
             setQuestionNumber((prevQuestion) => {
                 return ++prevQuestion;
             });
@@ -59,6 +62,7 @@ export default function Question() {
             
 
             setTimeout(() => {
+                setSolutionStyling("");
                 TIMER = 10000;
                 handleNextQuestion();
             }, 5000);
@@ -70,7 +74,7 @@ export default function Question() {
            <ProgressBar key={compReset} time={TIMER} onTimeOut={handleSkipAnswer}/>
            <h2>{questions[questionNumber-1].text}</h2>
            <ul id="answers">
-            {questions[questionNumber-1].answers.map((answer) => (
+            {shuffledAnswers.map((answer) => (
                 <Option className={(answer === selectedAnswers[selectedAnswers.length-1]) ? solutionStyling : ""} onClick={() => handleSelectionStyling(answer)} key={answer}>{answer}</Option>
             ))}
            </ul> 
