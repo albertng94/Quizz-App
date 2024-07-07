@@ -22,7 +22,7 @@ You can watch it live at: https://albertng94.github.io/Quizz-App/
 
 **Accomplishments:**
 - Improved the knowledge of the "setTimeOut" and "setInterval" JavaScript methods.
-- Learnt about the Context API ("useContext" hook) to solve Prop Drilling.
-- Learnt about the importance of using the "useReducer" hook to simplify the code of state updating functions.
-- Learnt about the importance of using the "useEffect" and "useCallback" hooks to solve potentially dangerous side effects.
-- Learnt it is possible to use a "key" prop within a sub-component to update it completely when the parent component's state is updated, but only if the key's value changes.
+- Learned about the Context API ("useContext" hook) to solve Prop Drilling.
+- Learned about the importance of using the "useReducer" hook to simplify the code of state updating functions.
+- Learned about the importance of using the "useEffect" and "useCallback" hooks to solve potentially dangerous side effects.
+- Learned it is possible to use a "key" prop within a sub-component to update it completely when the parent component's state is updated, but only if the key's value changes.
