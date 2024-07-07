@@ -16,11 +16,7 @@ export default function Question() {
     const [questionNumber, setQuestionNumber] = useState(1);
     const [solutionStyling, setSolutionStyling] = useState("");
 
-    if (questionNumber > 7) {
-        stageChange("questionsStageEnding", selectedAnswers);
-    }
-
-    if (questionNumber >= 1 && questionNumber < 8) {
+    if (questionNumber >= 1) {
         ++compReset;
     }
     
@@ -32,14 +28,22 @@ export default function Question() {
     const handleNextQuestion = useCallback(function handleNextQuestion(skipped) {
         if (questionNumber <= 7 && skipped) {
             selectedAnswers.push(skipped);
-            setQuestionNumber((prevQuestion) => {
-                return ++prevQuestion;
-            });
+            if (questionNumber === 7) {
+                stageChange("questionsStageEnding", selectedAnswers);
+            } else {
+                setQuestionNumber((prevQuestion) => {
+                    return ++prevQuestion;
+                });
+            }
         } else {
-            setQuestionNumber((prevQuestion) => {
-                TIMER = 10000;
-                return ++prevQuestion;
-            });
+            if (questionNumber === 7) {
+                stageChange("questionsStageEnding", selectedAnswers);
+            } else {
+                setQuestionNumber((prevQuestion) => {
+                    TIMER = 10000;
+                    return ++prevQuestion;
+                });
+            }
         }
     }, [solutionStyling, questionNumber]);
 
