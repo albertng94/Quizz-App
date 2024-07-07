@@ -44,6 +44,7 @@ export default function QuizStageContextProvider({ children }) {
 
     let quizStageCtx = {
         currentStage: quizStageState.stage,
+        selectedAnswers: quizStageState.answers,
         stageChange: handleStageChange
     };
 

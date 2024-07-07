@@ -1,4 +1,5 @@
 import Quiz from "./components/Quiz.jsx";
+import Summary from "./components/Summary.jsx";
 import QuizStageContextProvider from "./store/quizStage-context.jsx";
 import { QuizStageContext } from "./store/quizStage-context.jsx";
 import { useContext } from "react";
@@ -11,7 +12,7 @@ const App = () => {
     let content = <Quiz />;
 
     if (currentStage === "resultsStage") {
-        content = "Results-Component";
+        content = <Summary />;
     }
 
     return (
