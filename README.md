@@ -8,6 +8,7 @@ The main goal of the project was to create a Quiz-like web application which is 
 You can watch it live at: https://albertng94.github.io/Quizz-App/
 
 **Result:**
+
 ![image](https://github.com/albertng94/Quizz-App/assets/120219974/767fce2a-30e8-4c67-a79c-33f5215543a8)
 ![image](https://github.com/albertng94/Quizz-App/assets/120219974/844f9c52-e102-4b0a-879c-1078bcba5e63)
 ![image](https://github.com/albertng94/Quizz-App/assets/120219974/6baf47d2-5acf-49d9-8920-e02918d0acc6)
