@@ -17,7 +17,7 @@ export default function Question() {
     const [solutionStyling, setSolutionStyling] = useState("");
 
     if (questionNumber > 7) {
-        stageChange("questionsStageEnding");
+        stageChange("questionsStageEnding", selectedAnswers);
     }
 
     if (questionNumber >= 1 && questionNumber < 8) {

@@ -15,7 +15,8 @@ function quizStageReducer(state, action) {
     } else if (action.type === "questionsStageEnding") {
         return {
             ...state,
-            stage: "resultsStage"
+            stage: "resultsStage",
+            answers: action.payload
         }
     } 
     return state;
@@ -31,11 +32,11 @@ export default function QuizStageContextProvider({ children }) {
         }
     );
 
-    function handleStageChange(id) {
+    function handleStageChange(id, answers) {
         console.log(id);
         quizStageDispatch({
             type: id,
-            payload: {}
+            payload: answers
         });
     }
 
