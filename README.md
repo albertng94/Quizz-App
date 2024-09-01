@@ -3,6 +3,7 @@ Project to create a Quiz App (from the "React - The Complete Guide 2024 (incl. N
 **About the project:** This project corresponds to section 12 of the mentioned course and was performed completely autonoumously by me with the exception of two features:
 - The "index.css" file which came given as it was not the objective of the project to focus on the styling.
 - The progress bar functionality ("Question" and "ProgressBar" components), for which I required to look into Maximilian's solution and take ideas to adapt it into mine, as I got stuck for a long period and was lacking some knowledge.
+
 The main goal of the project was to create a Quiz-like web application which is controlled by a progress bar timer and passes through all the questions linearly to end up displaying a summary with the user's selections and results.
 
 You can watch it live at: https://albertng94.github.io/Quizz-App/
